@@ -1,14 +1,16 @@
-# em-arquitectura-bots-python
+# arquitectura-bots-python
 
-> ## Necesidad
->
+* Creado y diseñado por:
+
+> Juan David Calle y Luis Felipe Villalba 
+
+## Necesidad
 > Definir la arquitectura inicial de los proyectos de automatización realizadas con Python, estableciendo así los driver a utilizar y distribución de carpetas definida dentro del proyecto.
->
-> ## Solución
->
+
+## Solución
+
 > Proyecto plantilla con definición y distribución de carpetas y archivos iniciales, con distintos modulos útiles para el desarrollo de la automatización que se este desarrollando.
->
-> En este proyecto, se defino la herramienta [GeckoDriver](https://firefox-source-docs.mozilla.org/testing/geckodriver/index.html) como la herramienta encargada del WebDriver de Selenium para la interacción con páginas web, a través del navegador Mozilla Firefox.
+> En este proyecto, se definio la herramienta [GeckoDriver](https://firefox-source-docs.mozilla.org/testing/geckodriver/index.html) como la herramienta encargada del WebDriver de Selenium para la interacción con páginas web, a través del navegador Mozilla Firefox.
 
 ### Estructura de carpetas
 
@@ -23,7 +25,7 @@
 
 3. ***/plugins***
 
-* Carpeta contenedora de los plugins o .exe a utilizar como herramientas de interacción
+* Carpeta contenedora de los plugins, librerías o .exe a utilizar como herramientas de interacción
 
 4. ***/vendor***
 
@@ -63,7 +65,7 @@ La siguiente es la lista completa de librerias o paquetes usados en la creación
 
 Para la reutilización del código, y basado en la nomenclatura que le querramos dar, se necesita documentar el código, de manera que se puedan entender las clases y metodos directamente desde su instancia, mostrando los parametros que se reciben, o el proposito de ese bloque de código, para ello se comentará de la siguiente manera:
 
-Python no nos permite empaquetar bloques de código basado en su sintaxis, por ende, usaremos la extensión: Folding Region, que se encargará de empaquetar el código de la región en loques individuales, para lograr separar por segmentos:
+Python no nos permite empaquetar bloques de código basado en su sintaxis, por ende, usaremos la extensión: Folding Region, que se encargará de empaquetar el código de la región en bloques individuales, para lograr separar por segmentos:
 
 * Para user Folding Region, luego de instalarla, nos ubicamos en el apartado del código a empaquetar, y en la parte superior abrimos la región (# Region - Main), y al finalizar el bloque, cerramos dicha región (# Endregion - Main)
 * ```
@@ -120,3 +122,9 @@ def funcionDePrueba(self, variableUno: str, variableDos: bool, variableTres: tup
                 Descripción en lista de los usos que se le podrán dar a la función.
         """
 ```
+
+## Activacion de script de windows y Powershell
+
+* En algunas ocasiones tendremos problemas para ejecutar comandos en el terminal de visual estudio para ello tenemos la siguiente solucion:
+
+>Si abrimos el Windows PowerShell como administrador y ejecutamos el comando «Get-ExecutionPolicy» nos tendría que devolver «Restricted» o lo que es lo mismo «Restringido». Para cambiar esta configuración basta con ejecutar «Set-ExecutionPolicy Unrestricted» y indicar Si[S].

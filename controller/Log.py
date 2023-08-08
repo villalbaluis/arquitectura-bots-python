@@ -6,6 +6,7 @@
 from datetime import datetime, date, time, timedelta
 from os import makedirs, path, getcwd
 from controller.utils.Helpers import Helpers
+from controller.utils.Configurations import Configurations
 # Endregion - Importaciones de librerias y archivos
 
 # ===========================================================================
@@ -18,6 +19,7 @@ relativePath = getcwd()
 
 # Instancia de la clase Helper
 help = Helpers()
+configuration = Configurations()
 
 # Nombre de los archivos de logs de ejecución
 nombreArchivoProceso ="LogProcesos_"+(datetime.today() - timedelta(hours = 0)).strftime('%Y-%m-%d') +".txt"
@@ -47,8 +49,8 @@ class Log:
         self.__nombreArchivoProceso = nombreArchivoProceso
         self.__tiempoActual = ""
         
-        rutaCarpetaProcesos = help.getRoutes("UbicacionLogProceso", "Value")
-        rutaCarpetaErrores = help.getRoutes("UbicacionLogError", "Value")
+        rutaCarpetaProcesos = configuration.getConfigValue("routes","UbicacionLogProceso")
+        rutaCarpetaErrores = configuration.getConfigValue("routes","UbicacionLogError")
         
         if not(path.isdir(rutaCarpetaProcesos)):
             # Creación de la carpeta de logs de procesos, en caso de que no existe
@@ -75,7 +77,7 @@ class Log:
         message = "============================================================================================================================\n"
         message+= "| INICIO DE APLICACION - NombreAutomatización | " + str(self.gettiempoActual()) + "|\n"
         message+= "============================================================================================================================\n"
-        file = open(help.getRoutes("UbicacionLogProceso","Value") + self.__nombreArchivoProceso, "a")
+        file = open(configuration.getConfigValue("routes","UbicacionLogProceso") + self.__nombreArchivoProceso, "a")
         file.write(message + "\n") 
         file.close()
     
@@ -89,7 +91,7 @@ class Log:
         log = "============================================================================================================================\n"
         log+= "| FINAL DE APLICACION | " + str(self.gettiempoActual()) + "\n"
         log+= "============================================================================================================================\n"
-        file = open(help.getRoutes("UbicacionLogProceso","Value") + self.__nombreArchivoProceso, "a")
+        file = open(configuration.getConfigValue("routes","UbicacionLogProceso") + self.__nombreArchivoProceso, "a")
         file.write(log + "\n") 
         file.close()
         
@@ -102,7 +104,7 @@ class Log:
         """
         self.settiempoActual((datetime.today() - timedelta(hours = 0)).strftime('%Y-%m-%d %H:%M:%S'))
         Messagelog = "| Ejecutando la tarea --> ["+ nameProcess +"] --> Hora de ejecucion: " + str(self.gettiempoActual())
-        file = open(help.getRoutes("UbicacionLogProceso","Value") + self.__nombreArchivoProceso,"a")
+        file = open(configuration.getConfigValue("routes","UbicacionLogProceso") + self.__nombreArchivoProceso,"a")
         file.write(Messagelog + "\n") 
         file.close()
     
@@ -118,14 +120,14 @@ class Log:
         log = "============================================================================================================================\n"
         log+= "| "+ messageTitle +" | " + str(self.gettiempoActual())  + "\n"
         log+= "============================================================================================================================\n"
-        file = open(help.getRoutes("UbicacionLogProceso","Value") + self.__nombreArchivoProceso, "a")
+        file = open(configuration.getConfigValue("routes","UbicacionLogProceso") + self.__nombreArchivoProceso, "a")
         file.write(log + "\n") 
         file.close()
         
     # Metodo para hacer una division en un log
     def registroSeparador(self):
         log = "============================================================================================================================"
-        file = open(help.getRoutes("UbicacionLogProceso","Value") + self.__nombreArchivoProceso, "a")
+        file = open(configuration.getConfigValue("routes","UbicacionLogProceso") + self.__nombreArchivoProceso, "a")
         file.write(log + "\n") 
         file.close()
     
@@ -145,7 +147,7 @@ class Log:
         log+= "| Ultimo estado (Tarea) --> " + procesoActual +  "\n"
         log+= "============================================================================================================================\n"
         log+= "| ERROR --> " + str(error) + "\n"
-        file = open(help.getRoutes("UbicacionLogError","Value") + self.__nombreArchivoEror, "a")
+        file = open(configuration.getConfigValue("routes","UbicacionLogError") + self.__nombreArchivoEror, "a")
         file.write(log + "\n") 
         file.close()
         

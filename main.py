@@ -1,40 +1,45 @@
 # ===========================================================================
 # Importaciones de clases y librerias necesarias en este archivo main
 # ===========================================================================
-
-# Region -  Importaciones de archivos o librerias
+# region -  Importaciones de archivos o librerias
 from controller.Log import Log
 from controller.Impresor import Impresor
-from content.Selenium import Selenium
-# Endregion - Importaciones de archivos o librerias
+from content.YoutubeBot import YoutubeBot
+# endregion - Importaciones de archivos o librerias
 
 # ===========================================================================
 # VARIABLES GLOBALES - LOCALES - INICIALIZACION DE OBJETOS
 # ===========================================================================
-
-# Region - Instancia de clases de archivos importado
+# region - Instancia de clases de archivos importado
 logger = Log()
 consola = Impresor()
-bot = Selenium()
-# Endregion - Instancia de clases de archivos importado
 
+# endregion - Instancia de clases de archivos importado
+
+
+# region Body Metodo principal main
 def main():
     try: 
-        consola.imprimirInicio("Nombre De La Automatización")
+        # Metodos utilizados para almacenar logs iniciales e Imprimir resultados iniciales en pantalla
+        consola.imprimirInicio("Bots en Python - Reproducir cancion en youtube")
         logger.registroInicioProcesos()
-        consola.imprimirProceso("Inicio de ejecución del proceso")
-        logger.registrarLogProceso("Inicio de ejecución del proceso")
+
+        # Metodos para imprimir o dejar logs en cualquier parte del proceso
+        consola.imprimirProceso("Inicio de ejecucion del proceso")
+        logger.registrarLogProceso("Inicio de ejecucion del proceso")
         
-        # Region - Cuerpo de la automatización
-        bot.iniciarBot()
-        # Endregion - Cuerpo de la automatización
-                
+        # Ejecucion de bot
+        YoutubeBot().iniciarBotYoutube()
+
+        # Impresion y registro de log final      
         consola.imprimirFinal()
         logger.registroFinalProcesos()
     except Exception as e:
-        logger.registrarLogEror(f"Except del main: {e}", "Ejecución de Main")
-        consola.imprimirError(f"Ocurrió un error en la ejecución: {e}")
+        logger.registrarLogEror(f"Except del main: {e}", "Ejecucion de Main")
+        consola.imprimirError(f"Ocurrio un error en la ejecucion: {e}")
     
+# endregion
+
 # Metodo para ejecución del Script, invocando la función main()    
 if __name__ == '__main__':
     main()

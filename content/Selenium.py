@@ -1,16 +1,21 @@
 # region - Importaciones de clases y librerias
+import os
+from time import sleep
 from controller.Log import Log
-from controller.utils.Helpers import Helpers
-
 from selenium import webdriver
+from controller.Impresor import Impresor
+from controller.utils.Helpers import Helpers
 from selenium.webdriver.firefox.service import Service
 from selenium.webdriver.firefox.options import Options
+from controller.utils.Configurations import Configurations
 # endregion - Importaciones de clases y librerias
 
 
 # region - Inicialización de clases o variables globales
-log = Log()
+logger = Log()
 help = Helpers()
+consola = Impresor()
+configuration = Configurations()
 # endregion - Inicialización de clases o variables globales
 
 class Selenium:
@@ -39,10 +44,11 @@ class Selenium:
         # DESCOMENTAR LAS SIGUIENTES LINEAS SEGÚN LA NECESIDAD DEL REQUERIMIENTO
         
         # Forma 1: Iniciar las variables del Driver, funcional con Selenium v4.10
-        # self.opcionesDriver = Options() # Se inicializan las opciones del driver para Firefox
-        # self.opcionesDriver.add_argument('--disable-blink-features=AutomationControlled')
-        # self.servicePath = Service(help.getRoutes("GeckoDriver", "Value")) # Se inicializa el servicio en la ruta del GeckoDriver
-        
+        self.opcionesDriver = Options() # Se inicializan las opciones del driver para Firefox
+        self.opcionesDriver.add_argument('--disable-blink-features=AutomationControlled')
+        # Se inicializa el servicio en la ruta del GeckoDriver
+        self.servicePath = Service(os.getcwd() + configuration.getConfigValue("drivers","GeckoDriver")) 
+
         # Forma 2: Iniciar las variables del Driver, funcional con Selenium v4.9 o menores
         # self.executablePath = help.getRoutes("GeckoDriver", "Value")
         
@@ -62,17 +68,20 @@ class Selenium:
             importar dentro del archivo que llamo el Driver, y no en este archivo.
         """
         try:
-            
             # Instancia del driver de la Forma 1 (Descomentar las variables del init)
             driver = webdriver.Firefox(service = self.servicePath, options = self.opcionesDriver)            
-            
+            sleep(2)
+
             # Instancia del driver de la Forma 2 (Descomentar la linea de la Forma 2 del Init)
-            driver = webdriver.Firefox(executable_path = help.getRoutes("GeckoDriver", "Value"))
+            # driver = webdriver.Firefox(executable_path = self.servicePath)
             
             # Comentar o eliminar el Driver que no se usará según la versión y forma usadada.
+            consola.imprimirProceso("Instancia del objeto driver")
+            logger.registrarLogProceso("Instancia del objeto driver")
             return driver
         except Exception as e:
-            log.registrarLogEror(f"Inicialización del GeckoDriver, error: {e}", "retornarDriver")
+            consola.imprimirError(str(e))
+            logger.registrarLogEror(f"Inicialización del GeckoDriver, error: {e}", "retornarDriver")
             return None
         
     # endregion Metodos usados para la automatización con Selenium

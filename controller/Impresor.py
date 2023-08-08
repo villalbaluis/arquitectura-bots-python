@@ -16,6 +16,7 @@ class Impresor:
         - Depurar a través de print el código
         - Imprimir variables necesarias para el desarrollo
     """
+
     def __init__(self):
         """
             Constructor de la clase `Impresor`, donde se inicializan
@@ -24,16 +25,12 @@ class Impresor:
         self.__tiempoActual = ""
     
     def gettiempoActual(self):
-        """
-            Retornamos la hora actual de impresión
-        """
         return self.__tiempoActual
     
     def settiempoActual(self, tiempoActual):
         self.__tiempoActual = tiempoActual
         
     # Region - Metodos en la clase
-    
     def imprimirInicio(self, nombreApp):
         """
             Metodo encargado de imprimir en consola el

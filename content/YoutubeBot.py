@@ -22,16 +22,25 @@ configuration = Configurations()
 class YoutubeBot:
     # Constructor de clase
     def __init__(self):
+        """
+            Constuctor de la clase, encargado de generar 
+            las variables o instancias de metodos que serán
+            necesarias dentro de la clases
+        """
         self.__driver = selenium.retornarDriver()
 
     # region Metodos
     # Inicializador de proceso para el bot de youtube
     def iniciarBotYoutube(self):
         """
-            Metodo que Inicia e instancia los valores necesarios
+            Metodo encargado del llamado de las funciones
+            que harán el procesamiento del bot dentro de
+            la clase.
+            - Se abrirán distintas páginas a través del metodo.
+            - Se llevará una traza de inicio y fin
         """
         self.__driver.maximize_window()
-        sleep(2)
+        sleep(1)
         consola.imprimirProceso("Inicio de marioneta")
         logger.registrarLogProceso("Inicio de marioneta")
         self.agregarAdblock()
@@ -44,6 +53,12 @@ class YoutubeBot:
     
     
     def agregarAdblock(self):
+        """
+            Metodo encargado de quitar los anuncios encontrados
+            dentro del video que se esta reproduciendo.\n
+            Simularia un comportamiento de movimiento de mouse 
+            para generar el click en la pantalla.
+        """
         consola.imprimirProceso("Agregando adBlock")
         logger.registrarLogProceso("Agregando adBlock")
         self.__driver.get(configuration.getConfigValue("urls","adblock"))
@@ -57,6 +72,7 @@ class YoutubeBot:
         mouse.singleClick()
         sleep(5)
 
+    # Region - Metodos encargados de la busqueda e interacción con la página
     def buscarCancion1(self):
         consola.imprimirProceso("Ejecucion de primer cancion")
         logger.registrarLogProceso("Ejecucion de primer cancion")
@@ -92,4 +108,7 @@ class YoutubeBot:
         sleep(3)
         mouse.singleClick()
         sleep(int(configuration.getConfigValue("time","videoTime")))
-    # endregion    
+    # Region - Metodos encargados de la busqueda e interacción con la página
+    
+    # endregion
+        
